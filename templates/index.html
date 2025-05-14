@@ -3,21 +3,20 @@
 <head>
   <meta charset="UTF-8">
   <title>Rock Paper Scissors - Best of 5</title>
-  <style>
-    img { width: 100px; cursor: pointer; margin: 10px; }
-    body { font-family: sans-serif; text-align: center; }
-  </style>
+  <link rel="stylesheet" href="./static/style.css">
 </head>
 <body>
-  <h1>Best of 5</h1>
+  <div class="card">
+  <h2>Rock, Paper and Scissors    Best of 5</h2>
   <p id="score">Player 0 x 0 Computer</p>
-  <div>
+  <div class="choices">
     <img src="/static/img/rock.png" alt="Rock" onclick="makeChoice('r')">
     <img src="/static/img/paper.png" alt="Paper" onclick="makeChoice('p')">
     <img src="/static/img/scissors.png" alt="Scissors" onclick="makeChoice('s')">
   </div>
   <p id="result"></p>
   <button onclick="resetGame()">Restart</button>
+</div>
 
   <script>
     let playerWins = 0;
