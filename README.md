@@ -2,9 +2,9 @@
 
 ## 🛠️ About the Project
 
-![Sample Image](image.png)
+![rps game](rps.png)
 
-> This repository is intended to store the code for the Rock, Paper, Scissors game, developed in Python.
+> This repository is intended to store the code for the Rock, Paper and Scissors game.
 
 ---
 ## 🟢 Project Status
@@ -14,7 +14,7 @@ The project is still under development and the next updates will focus on the fo
 - [x] Create a basic frontend
 - [x] Implement core game logic
 - [ ] Add game-ending condition after 5 wins
-- [ ] Enhance the frontend design and user experience
+- [x] Enhance the frontend design and user experience
 
 ---
 
@@ -22,8 +22,8 @@ The project is still under development and the next updates will focus on the fo
 
 This project uses the following technologies:
 
-- **Frontend**: HTML5, CSS3
-- **Backend**: Python
+- **Frontend**: HTML5, CSS3.
+- **Backend**: Python.
 
 ---
 
