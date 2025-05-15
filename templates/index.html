@@ -1,71 +1,106 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>Rock Paper Scissors - Best of 5</title>
-  <link rel="stylesheet" href="./static/style.css">
-</head>
-<body>
-  <div class="card">
-  <h2>Rock, Paper and Scissors    Best of 5</h2>
-  <p id="score">Player 0 x 0 Computer</p>
-  <div class="choices">
-    <img src="/static/img/rock.png" alt="Rock" onclick="makeChoice('r')">
-    <img src="/static/img/paper.png" alt="Paper" onclick="makeChoice('p')">
-    <img src="/static/img/scissors.png" alt="Scissors" onclick="makeChoice('s')">
-  </div>
-  <p id="result"></p>
-  <button onclick="resetGame()">Restart</button>
-</div>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Rock Paper Scissors - Best of 5</title>
+    <link rel="stylesheet" href="./static/style.css" />
+  </head>
+  <body>
+    <div class="card">
+      <h2>Rock, Paper and Scissors Best of 5</h2>
+      <p id="score">Player 0 x 0 Computer</p>
+      <div class="choices">
+        <img src="/static/img/rock.png" alt="Rock" onclick="makeChoice('r')" />
+        <img
+          src="/static/img/paper.png"
+          alt="Paper"
+          onclick="makeChoice('p')"
+        />
+        <img
+          src="/static/img/scissors.png"
+          alt="Scissors"
+          onclick="makeChoice('s')"
+        />
+      </div>
+      <p id="result"></p>
+      <button onclick="resetGame()">Restart</button>
+    </div>
 
-  <script>
-    let playerWins = 0;
-    let computerWins = 0;
-    const n = 5;
+    <div class="modal" id="modal" style="display: none">
+      <div class="modal-content">
+        <p class="modal-heading">Final Result</p>
+        <p class="modal-description" id="modal-message">Game Over!</p>
+      </div>
+      <div class="modal-button-wrapper">
+        <button onclick="resetGame(); closeModal();">Reset</button>
+      </div>
+    </div>
 
-    function makeChoice(choice) {
-      fetch('/play', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          choice,
-          player_wins: playerWins,
-          computer_wins: computerWins,
-          n
+    <script>
+      let playerWins = 0;
+      let computerWins = 0;
+      const n = 5;
+
+      function makeChoice(choice) {
+        fetch("/play", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            choice,
+            player_wins: playerWins,
+            computer_wins: computerWins,
+            n,
+          }),
         })
-      })
-      .then(res => res.json())
-      .then(data => {
-        const names = { r: 'Rock', p: 'Paper', s: 'Scissors' };
-        let message = `You chose ${names[data.user]}, the computer chose ${names[data.computer]}. `;
+          .then((res) => res.json())
+          .then((data) => {
+            const names = { r: "Rock", p: "Paper", s: "Scissors" };
+            let message = `You chose ${names[data.user]}, the computer chose ${
+              names[data.computer]
+            }. `;
 
-        if (data.result === 1) {
-          message += 'You won this round!';
-        } else if (data.result === -1) {
-          message += 'You lost this round.';
-        } else {
-          message += 'It\'s a tie.';
-        }
+            if (data.result === 1) {
+              message += "You won this round!";
+            } else if (data.result === -1) {
+              message += "You lost this round.";
+            } else {
+              message += "It's a tie.";
+            }
 
-        playerWins = data.player_wins;
-        computerWins = data.computer_wins;
+            playerWins = data.player_wins;
+            computerWins = data.computer_wins;
 
-        document.getElementById('score').textContent = `Player ${playerWins} x ${computerWins} Computer`;
-        document.getElementById('result').textContent = message;
+            document.getElementById(
+              "score"
+            ).textContent = `Player ${playerWins} x ${computerWins} Computer`;
+            document.getElementById("result").textContent = message;
 
-        if (data.finished) {
-          const finalMessage = data.winner === 'player' ? 'You won the game! 🎉' : 'Computer won the game. 😢';
-          document.getElementById('result').textContent += ' ' + finalMessage;
-        }
-      });
-    }
+            if (data.finished) {
+              const finalMessage =
+                data.winner === "player"
+                  ? "You won the game! 🎉"
+                  : "Computer won the game. 😢";
+              document.getElementById("modal-message").textContent =
+                finalMessage;
+              openModal();
+            }
+          });
+      }
 
-    function resetGame() {
-      playerWins = 0;
-      computerWins = 0;
-      document.getElementById('score').textContent = `Player 0 x 0 Computer`;
-      document.getElementById('result').textContent = '';
-    }
-  </script>
-</body>
+      function openModal() {
+        document.getElementById("modal").style.display = "block";
+      }
+
+      function closeModal() {
+        document.getElementById("modal").style.display = "none";
+      }
+
+      function resetGame() {
+        playerWins = 0;
+        computerWins = 0;
+        document.getElementById("score").textContent = `Player 0 x 0 Computer`;
+        document.getElementById("result").textContent = "";
+      }
+    </script>
+  </body>
 </html>
