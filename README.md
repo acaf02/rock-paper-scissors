@@ -9,12 +9,7 @@
 ---
 ## 🟢 Project Status
 
-The project is still under development and the next updates will focus on the following tasks:
-
-- [x] Create a basic frontend
-- [x] Implement core game logic
-- [ ] Add game-ending condition after 5 wins
-- [x] Enhance the frontend design and user experience
+The project is complete.
 
 ---
 
